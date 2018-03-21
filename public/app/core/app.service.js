@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    var app = angular.module('pfApp');
+    var app = angular.module('flaApp');
 
     // login service
     app.service('LoginService', LoginService);

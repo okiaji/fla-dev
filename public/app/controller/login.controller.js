@@ -1,21 +1,52 @@
 (function(angular) {
     'use strict';
 
-    angular.module('pfApp')
-        .controller('LoginCtrl', LoginCtrl)
-    LoginCtrl.$inject = ['$route', '$routeParams', '$location', 'LoginService']
+    var app = angular.module('flaApp');
+    app.controller('LoginCtrl', LoginCtrl);
+    
+    LoginCtrl.$inject = ['$scope', 'LoginService'];
 
-    function LoginCtrl($route, $routeParams, $location, OfficeService) {
-        this.tabActive = "login";
+    function LoginCtrl($scope, LoginService) {
 
-        this.needAccount = function () {
-            this.tabActive = "register";
+        this.toLogin = true;
+        this.forggotPassword = false;
+
+        //determine which events to use
+        var eventMouseDown = 'mousedown',
+            eventMouseUp   = 'mouseup';
+
+        if ($scope.isTouchDevice()) {
+            eventMouseDown = 'touchstart';
+            eventMouseUp   = 'touchend';
         }
-        this.selectAccount = function () {
-            this.tabActive = "select";
+
+        $( "#btnViewPass" ).bind(eventMouseDown,function() {
+             $('#inputPassword').attr('type', 'text');
+             $( "#btnViewPass i.fa" ).addClass("fa-eye");
+             $( "#btnViewPass i.fa" ).removeClass("fa-eye-slash");
+        });
+
+        $( "#btnViewPass" ).bind(eventMouseUp,function() {
+            $('#inputPassword').attr('type', 'password');
+             $( "#btnViewPass i.fa" ).removeClass("fa-eye");
+             $( "#btnViewPass i.fa" ).addClass("fa-eye-slash");
+        });
+
+        $("#inputPassword").keyup(function() {
+            if( $(this).val().length === 0 ) {
+                $("#btnViewPass").removeClass("show");
+            } else {
+                $("#btnViewPass").addClass("show");
+            }
+        });
+
+        this.needRecover = function () {
+            this.toLogin = false;
+            this.forggotPassword = true;
         }
-        this.haveAccount = function () {
-            this.tabActive = "login";
+        this.needLogin = function () {
+            this.toLogin = true;
+            this.forggotPassword = false;
         }
     };
 

@@ -1,6 +1,6 @@
 (function(angular){
     'use strict'
-    var app = angular.module('pfApp', ['routeApp', 'utilApp']);
+    var app = angular.module('flaApp', ['routeApp', 'utilApp']);
 
     app.config(
         function ($interpolateProvider) {
