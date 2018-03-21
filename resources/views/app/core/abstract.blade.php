@@ -4,14 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>PF</title>
+    @yield('custom-meta')
+    <title>FLA - @yield('title')</title>
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}" />
-    <link rel="stylesheet" href="{{asset('app/view/assets/css/custom.css')}}" />
+    @yield('custom-style')
+
     <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
 
-    <script src="{{asset('js/require.js')}}"></script>
     <script src="{{asset('js/angular.min.js')}}"></script>
     <script src="{{asset('js/angular-route.min.js')}}"></script>
     <script src="{{asset('app/core/app.route.js')}}"></script>
@@ -19,13 +20,16 @@
     <script src="{{asset('app/core/app.module.js')}}"></script>
     <script src="{{asset('app/core/app.service.js')}}"></script>
 
-    <script src="{{asset('app/controller/login.controller.js')}}"></script>
+    @yield('custom-script')
 
     <script type="text/javascript">
         angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));
+
+
     </script>
 </head>
-<body ng-app="pfApp">
-    <div class="view" ng-view></div>
+<body ng-app="flaApp">
+    @yield('content')
+    @yield('footer')
 </body>
 </html>
