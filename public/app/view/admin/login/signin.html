@@ -1,24 +1,24 @@
 <div id="loginbox">
-    <form id="loginform" class="form-vertical" action="index.html" ng-show="login.toLogin&&!login.forggotPassword">
+    <form id="loginform" class="form-vertical" ng-show="login.toLogin&&!login.forggotPassword">
         <div class="control-group normal_text"> <h3><img src="http://themedesigner.in/demo/matrix-admin/img/logo.png" alt="Logo" /></h3></div>
         <div class="input-group mb-2 main_input_box">
             <div class="input-group-prepend">
                 <div class="input-group-text add-on bg_lg"><i class="fa fa-user"></i></div>
             </div>
-            <input type="text" class="form-control" placeholder="Username">
+            <input type="text" class="form-control" ng-model='login.input.username' placeholder="Username">
         </div>
         <div class="input-group mb-2 main_input_box">
             <div class="input-group-prepend">
                 <div class="input-group-text add-on bg_ly"><i class="fa fa-lock"></i></div>
             </div>
-            <input id="inputPassword" type="password" class="form-control" placeholder="Password">
+            <input id="inputPassword" type="password" class="form-control" ng-model='login.input.password' placeholder="Password">
             <div id="btnViewPass" class="view-pass <{login.btnShowPass?'show':''}>">
                 <i class="fa fa-eye-slash" aria-hidden="true"></i>
             </div>
         </div>
         <div class="form-actions">
             <span class="pull-left"><a href="" class="flip-link" id="to-recover" ng-click="login.needRecover()">Forgotten your password?</a></span>
-            <span class="pull-right"><a class="btn btn-success bg_lg" href="#" role="button">Login</a></span>
+            <span class="pull-right"><a class="btn btn-success bg_lg" href="#" ng-click="login.doLogin()" role="button">Login</a></span>
         </div>
     </form>
     <form id="recoverform" action="#" class="form-vertical" ng-show="!login.toLogin&&login.forggotPassword">

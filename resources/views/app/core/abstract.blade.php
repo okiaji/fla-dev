@@ -24,8 +24,6 @@
 
     <script type="text/javascript">
         angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));
-
-
     </script>
 </head>
 <body ng-app="flaApp">

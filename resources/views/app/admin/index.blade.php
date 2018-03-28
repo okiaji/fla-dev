@@ -3,7 +3,7 @@
 @section('title', 'Admin')
 
 @section('custom-style')
-    <link rel="stylesheet" href="{{asset('app/view/assets/css/admin.custom.css')}}" />
+    <link rel="stylesheet" href="{{asset('app/style/admin/css/admin.custom.css')}}" />
 @endsection
 
 @section('custom-script')

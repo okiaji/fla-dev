@@ -4,12 +4,13 @@
     var app = angular.module('flaApp');
     app.controller('LoginCtrl', LoginCtrl);
     
-    LoginCtrl.$inject = ['$scope', 'LoginService'];
+    LoginCtrl.$inject = ['$scope', 'AuthService', 'constant', '$window'];
 
-    function LoginCtrl($scope, LoginService) {
+    function LoginCtrl($scope, AuthService, constant, $window) {
 
         this.toLogin = true;
         this.forggotPassword = false;
+        this.input = [];
 
         //determine which events to use
         var eventMouseDown = 'mousedown',
@@ -47,6 +48,28 @@
         this.needLogin = function () {
             this.toLogin = true;
             this.forggotPassword = false;
+        }
+
+        this.doLogin = function () {
+            console.log("login");
+            var input = {
+                username : this.input.username,
+                password : this.input.password
+            }
+            AuthService.login(input)
+                .then(function (result) {
+                        if(result.data.status == constant.OK) {
+                            localStorage.setItem('token', result.data.response.user_token);
+                            $window.location.href = '/';
+                        } else {
+                            console.log(result.data);
+                        }
+                    }
+                )
+                .catch(function (result) {
+                        console.log(result);
+                    }
+                )
         }
     };
 

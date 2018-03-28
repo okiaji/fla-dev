@@ -16,3 +16,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/', function () {
+    return redirect('/');
+});
+Route::post('login', 'App\Common\AuthController@login');
+Route::post('logout', 'App\Common\AuthController@logout');
+Route::get('get-user-list-advance', 'App\Admin\PersonController@getUserListAdvance')->middleware('verifyReq');
+Route::get('test', 'TestController@test')->middleware('verifyReq');
