@@ -37,10 +37,12 @@
                 var req = $http({
                     method: "GET",
                     url: "http://127.0.0.1:8000/api/get-user-list-advance",
-                    data: input
+                    params: input
                 });
 
-                return req;
+                return req.then(function(response){
+                    return response.data;
+                });
             }
         }
     };

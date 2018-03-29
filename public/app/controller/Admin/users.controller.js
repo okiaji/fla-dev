@@ -4,27 +4,37 @@
     var app = angular.module('flaApp');
     app.controller('UsersCtrl', UsersCtrl);
 
-    UsersCtrl.$inject = ['$scope', 'PersonService', 'constant', '$window'];
+    UsersCtrl.$inject = ['$scope', 'PersonService', 'constant', '$window', 'Pagination'];
 
-    function UsersCtrl($scope, PersonService, constant, $window) {
+    function UsersCtrl($scope, PersonService, constant, $window, Pagination) {
 
-        console.log("test");
+        $scope.showData=10;
+        var currentPage = $scope.getURLParameter('p');
+        var pagination = $scope.pagination = Pagination.create({
+            itemsPerPage: 10,
+            itemsCount: 100,
+            maxNumbers: 5,
+            currentPage: currentPage
+        });
 
-        this.doSearch = function () {
-            console.log("doSearch");
+        pagination.onChange = function(page) {
+            $scope.setURLParameter('p',page)
+            $scope.doSearch();
+        };
+
+        $scope.doSearch = function () {
             var input = {
                 username : '',
                 fullName : '',
                 email : '',
-                phoneNumber : ''
+                phoneNumber : '',
+                limit : 1,
+                offset : $scope.pagination.currentPage-1
             }
             PersonService.getUserListAdvance(input)
                 .then(function (result) {
-                        if(result.data.status == constant.OK) {
-                            console.log(result.data);
-                            $scope.userList=result.data.response.userList;
-
-                            console.log($scope.userList);
+                        if(result.status == constant.OK) {
+                            $scope.userList=result.response.userList;
                         } else {
                             console.log(result.data);
                         }
@@ -35,8 +45,14 @@
                     }
                 )
         }
+        $scope.changeShowData = function () {
+            console.log($scope.showData);
+        }
 
-        this.doSearch();
+
+        $scope.doSearch();
+        $scope.changeShowData();
+
 
     };
 

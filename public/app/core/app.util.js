@@ -31,6 +31,24 @@
                         }
                     )
             }
+
+            $rootScope.getURLParameter = function (paramKey) {
+                return decodeURIComponent(
+                    (RegExp('[?|&]'+paramKey + '=' + '(.+?)(&|$)').exec(location.search)||[null,null])[1]
+                );
+            }
+
+            $rootScope.setURLParameter = function (paramKey, paramValue) {
+                var search;
+                if($rootScope.getURLParameter(paramKey)){
+                    search =location.search.replace(new RegExp('([?|&]'+paramKey + '=)' + '(.+?)(&|$)'),"$1"+encodeURIComponent(paramValue)+"$3");
+                }else if(location.search.length){
+                    search = location.search +'&'+paramKey + '=' +encodeURIComponent(paramValue);
+                }else{
+                    search = '?'+paramKey + '=' +encodeURIComponent(paramValue);
+                }
+                $window.history.pushState(null,document.title,search);
+            }
         }
     ]);
 
@@ -54,6 +72,12 @@
     app.directive('copyRight', function () {
         return {
             templateUrl : 'app/view/common/copy.html'
+        };
+    })
+
+    app.directive('pagging', function () {
+        return {
+            templateUrl : 'app/view/common/pagging.html'
         };
     })
 })(window.angular);

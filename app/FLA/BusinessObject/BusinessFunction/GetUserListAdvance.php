@@ -41,9 +41,9 @@ class GetUserListAdvance extends AbstractBusinessFunction
                 ->addIfNotEmpty($fullName, ' AND '.ConditionExpression::likeCaseInsensitive('A.full_name', $fullName))
                 ->addIfNotEmpty($email, ' AND '.ConditionExpression::likeCaseInsensitive('A.email', $email))
                 ->addIfNotEmpty($phoneNumber, ' AND '.ConditionExpression::likeCaseInsensitive('B.phone_number', $phoneNumber))
+                ->add(' ORDER BY A.full_name ')
                 ->addIfNotEmpty($limit, ' LIMIT '.$limit)
-                ->addIfNotEmpty($offset,' OFFSET '.$offset)
-                ->add(' ORDER BY A.full_name ');
+                ->addIfNotEmpty($offset,' OFFSET '.$offset);
         $user = DB::select($builder->toString());
 
         return [

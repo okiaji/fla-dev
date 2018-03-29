@@ -18,7 +18,9 @@ class PersonController extends Controller
                 'username' => $request['username'],
                 'fullName' => $request['fullName'],
                 'email' => $request['email'],
-                'phoneNumber' => $request['phoneNumber']
+                'phoneNumber' => $request['phoneNumber'],
+                'limit' => $request['limit'],
+                'offset' => $request['offset']
             ];
 
             $userList = new GetUserListAdvance();

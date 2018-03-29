@@ -57,11 +57,15 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
     <link href="{{asset('app/style/admin/css/admin.main.min.css')}}" rel="stylesheet"> @yield('custom-style') @yield('custom-script')
     @yield('custom-style')
 
+    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="{{asset('js/angular.min.js')}}"></script>
     <script src="{{asset('js/angular-route.min.js')}}"></script>
+    <script src="{{asset('js/angular-pagination.min.js')}}"></script>
     <script src="{{asset('app/core/app.route.js')}}"></script>
     <script src="{{asset('app/core/app.util.js')}}"></script>
     <script src="{{asset('app/core/app.module.js')}}"></script>
