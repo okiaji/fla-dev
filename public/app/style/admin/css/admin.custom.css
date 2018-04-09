@@ -3,6 +3,9 @@ html, body, .view {
     height: 100%;
     width: 100%;
 }
+body{
+    top:auto!important;
+}
 hr{
     border-top-color:#dadada;
 }
@@ -17,6 +20,10 @@ hr{
     color: #fff;
     text-align: center;
     height: 40px;
+}
+
+*::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #a7a7a7!important;
 }
 
 .bg_lb{
@@ -55,6 +62,9 @@ hr{
 .bg_db{
      background:#2E363F;
  }
+.bg_none{
+    background: none;
+}
 a#to-recover, a#to-login {
     color: #fff;
 }
@@ -184,4 +194,17 @@ a#to-recover, a#to-login {
 }
 .view-pass.show:hover {
     opacity: 1;
+}
+
+.btn:focus{
+    -webkit-box-shadow: none!important;
+    box-shadow: none!important;
+}
+
+button:disabled,button.disabled {
+    cursor: default!important;
+}
+
+input.instant-search {
+    height: auto!important;
 }

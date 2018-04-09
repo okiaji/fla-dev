@@ -13,7 +13,6 @@
             };
 
             $rootScope.doLogout = function () {
-                console.log("logout");
                 var input = {
                 }
                 AuthService.logout(input)
@@ -40,7 +39,7 @@
 
             $rootScope.setURLParameter = function (paramKey, paramValue) {
                 var search;
-                if($rootScope.getURLParameter(paramKey)){
+                if($rootScope.getURLParameter(paramKey)&&$rootScope.getURLParameter(paramKey)!="null"){
                     search =location.search.replace(new RegExp('([?|&]'+paramKey + '=)' + '(.+?)(&|$)'),"$1"+encodeURIComponent(paramValue)+"$3");
                 }else if(location.search.length){
                     search = location.search +'&'+paramKey + '=' +encodeURIComponent(paramValue);
@@ -48,6 +47,38 @@
                     search = '?'+paramKey + '=' +encodeURIComponent(paramValue);
                 }
                 $window.history.pushState(null,document.title,search);
+            }
+
+            $rootScope.changePagination = function (page) {
+                $rootScope.setURLParameter('p',page);
+            }
+
+            $rootScope.generatePagination = function (scope, Pagination, itemsPerPage, itemsCount, maxNumbers, currentPage) {
+                scope.pagination = Pagination.create({
+                    itemsPerPage: itemsPerPage,
+                    itemsCount: itemsCount,
+                    maxNumbers: maxNumbers,
+                    currentPage: currentPage
+                });
+
+                scope.pagination.onChange = function(page) {
+
+                    // must create this method on your scope
+                    scope.changePagination(page);
+                }
+            }
+
+            setTimeout(function(){
+                document.getElementById("loader").style.display = "none";
+            }, 300);
+
+            $rootScope.showLoading = function () {
+                document.getElementById("loader").style.display = "block";
+                document.getElementById("loader").style.background = "#ffffff99";
+            }
+
+            $rootScope.hideLoading = function () {
+                document.getElementById("loader").style.display = "none";
             }
         }
     ]);
@@ -57,6 +88,7 @@
      */
     app.constant(
         'constant', {
+            SITE_URL: 'http://127.0.0.1:8000',
             OK: 'OK',
             FAIL: 'FAIL',
             YES: 'Y',

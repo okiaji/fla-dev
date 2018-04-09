@@ -10,6 +10,6 @@ class GeneralUtil
     }
 
     public static function generateToken($user, $datetimeNow) {
-        return "FLA_".md5(uniqid($user."_".rand()."_".$datetimeNow, true))."_".Uuid::uuid4()->toString();
+        return "FLA-".md5(uniqid($user."_".rand()."_".$datetimeNow, true))."-".Uuid::uuid4()->toString();
     }
 }

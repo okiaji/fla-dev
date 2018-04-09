@@ -1,16 +1,16 @@
 <?php
 
-namespace App\FLA\Common\BusinessObject\BusinessTransaction;
+namespace App\FLA\Common\BusinessObject\BusinessTransaction\user;
 
+use App\FLA\Common\BusinessObject\BusinessFunction\user\FindUserByUsername;
 use App\FLA\Common\CommonConstant;
 use App\FLA\Core\AbstractBusinessTransaction;
-use App\FLA\Core\DateUtil;
-use App\FLA\Core\ValidationUtil;
-use App\FLA\Common\BusinessObject\BusinessFunction\FindUserByUsername;
+use App\FLA\Core\Util\DateUtil;
+use App\FLA\Core\Util\ValidationUtil;
 
 class AddUserLoggedInfo extends AbstractBusinessTransaction
 {
-    protected function prepare($input, $oriInput)
+    protected function prepare(&$input, $oriInput)
     {
         ValidationUtil::valBlankOrNull($input, 'userName');
         ValidationUtil::valBlankOrNull($input, 'userIp');
@@ -22,7 +22,7 @@ class AddUserLoggedInfo extends AbstractBusinessTransaction
         $userDevice = $input['userDevice'];
         $userBrowser = $input['userBrowser'];
 
-        $findUserByUsername = new FindUserByUsername;
+        $findUserByUsername = new FindUserByUsername();
         $user = $findUserByUsername->execute($username);
 
         $userLoggedInfo = [
@@ -37,7 +37,7 @@ class AddUserLoggedInfo extends AbstractBusinessTransaction
         ];
     }
 
-    protected function process($input, $oriInput)
+    protected function process(&$input, $oriInput)
     {
         $userLoggedInfo = $input['userLoggedInfo'];
 

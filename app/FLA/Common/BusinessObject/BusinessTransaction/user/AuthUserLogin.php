@@ -1,9 +1,9 @@
 <?php
 
-namespace App\FLA\Common\BusinessObject\BusinessTransaction;
+namespace App\FLA\Common\BusinessObject\BusinessTransaction\user;
 
-use App\FLA\Common\BusinessObject\BusinessFunction\IsUserExistsByForLogin;
-use App\FLA\Common\BusinessObject\BusinessFunction\IsUserLoggedInfoExistsByIndex;
+use App\FLA\Common\BusinessObject\BusinessFunction\user\IsUserExistsForLogin;
+use App\FLA\Common\BusinessObject\BusinessFunction\user\IsUserLoggedInfoExistsByIndex;
 use App\FLA\Common\CommonExceptionsConstant;
 use App\FLA\Common\Model\UserLoggedInfo;
 use App\FLA\Core\AbstractBusinessTransaction;
@@ -33,7 +33,7 @@ class AuthUserLogin extends AbstractBusinessTransaction
         $datetimeNow = DateUtil::currentDatetime();
         $isNewClient = false;
 
-        $checkUser = new IsUserExistsByForLogin();
+        $checkUser = new IsUserExistsForLogin();
         $resultCheckUser = $checkUser->execute([
             'usernameOrEmail'=>$usernameOrEmail,
             'password'=>$password
@@ -56,17 +56,15 @@ class AuthUserLogin extends AbstractBusinessTransaction
         ]);
 
         if($resultCheckUserLoggedInfo['exists']) {
-            $isNewClient = true;
 
             $userLoggedInfo = $resultCheckUserLoggedInfo['userLoggedInfo'];
 
             $userLoggedInfoArr = [
-                'id' => $userLoggedInfo->user_logged_info_id,
-                'userToken' => $userToken,
-                'updateUserId' => $userId
+                'id' => $userLoggedInfo->user_logged_info_id
             ];
 
         } else {
+            $isNewClient = true;
             $userLoggedInfoArr = [
                 'userId' => $user->user_id,
                 'userIp' => $ip,
@@ -92,15 +90,12 @@ class AuthUserLogin extends AbstractBusinessTransaction
         $userLoggedInfoArr = $input['userLoggedInfoArr'];
 
         if($isNewClient) {
-            // Update token
-            $userLoggedInfo = UserLoggedInfo::find($userLoggedInfoArr['id']);
-            $userLoggedInfo = ModelUtil::convertArrayToModel($userLoggedInfoArr, $userLoggedInfo);
-            $result = $userLoggedInfo->edit();
-        } else {
             // Insert data user logged info
             $userLoggedInfo = new UserLoggedInfo();
             $userLoggedInfo = ModelUtil::convertArrayToModel($userLoggedInfoArr, $userLoggedInfo);
             $result = $userLoggedInfo->add();
+        } else {
+            $result = UserLoggedInfo::find($userLoggedInfoArr['id']);
         }
 
         $data = array('name'=>"Congky", 'text'=>'Anda baru saja login');

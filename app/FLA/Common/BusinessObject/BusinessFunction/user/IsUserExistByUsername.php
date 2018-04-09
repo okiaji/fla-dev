@@ -1,6 +1,6 @@
 <?php
 
-namespace App\FLA\Common\BusinessObject\BusinessFunction;
+namespace App\FLA\Common\BusinessObject\BusinessFunction\user;
 
 use App\FLA\Core\AbstractBusinessFunction;
 use App\FLA\Core\Util\ValidationUtil;

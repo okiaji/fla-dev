@@ -13,8 +13,8 @@ class ConditionExpression
         return " UPPER(".$column.") LIKE '%".strtoupper($value)."%' ";
     }
 
-    public static function equalCaseSensitive(){
-
+    public static function equalCaseSensitive($column, $value){
+        return $column." = '".$value."'";
     }
 
     public static function equalCaseInsensitive(){

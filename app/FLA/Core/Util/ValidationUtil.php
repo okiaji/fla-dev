@@ -17,7 +17,9 @@ class ValidationUtil
 
     public static function valBlankOrNull(Array $inputArray, String $key){
 
-        if(!array_key_exists($key, $inputArray) || $inputArray[$key] == '') {
+        self::valContainsKey($inputArray, $key);
+
+        if($inputArray[$key] == '') {
             throw new Exception('Input with parameter '.$key.' must be filled');
         }
 

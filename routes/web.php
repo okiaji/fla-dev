@@ -16,15 +16,9 @@ Route::get('/', function () {
 });
 
 Route::get('/login', function () {
-    return view('app.admin.index');
+    return view('app.admin.login');
 });
 
-Route::get('/', function () {
-    return view('app.admin.dashboard');
-})->middleware('verifyReq');
-Route::get('/dashboard', function () {
-    return view('app.admin.dashboard');
-})->middleware('verifyReq');
 Route::get('/forms', function () {
     return view('app.admin.form');
 });
@@ -34,6 +28,24 @@ Route::get('/basic-table', function () {
 Route::get('/datatable', function () {
     return view('app.admin.datatable');
 });
-Route::get('/users', function () {
-    return view('app.admin.users');
+
+
+Route::group(['middleware' => ['verifyUserLogged']], function () {
+
+    Route::get('/', function () {
+        return view('app.admin.dashboard');
+    });
+
+    Route::get('/dashboard', function () {
+        return view('app.admin.dashboard');
+    });
+
+    Route::get('/users', function () {
+        return view('app.admin.users');
+    });
+
+    // ROLE
+    Route::get('/role', function () {
+        return view('app.admin.role');
+    });
 });

@@ -1,4 +1,4 @@
-@extends('app.core.admin.abstract')
+@extends('app.core.admin.default')
 
 @section('title', 'Person')
 

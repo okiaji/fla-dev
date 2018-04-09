@@ -1,8 +1,8 @@
 <?php
 namespace App\Http\Controllers\App\Common;
 
-use App\FLA\Common\BusinessObject\BusinessTransaction\AuthUserLogin;
-use App\FLA\Common\BusinessObject\BusinessTransaction\DestroyUserLogin;
+use App\FLA\Common\BusinessObject\BusinessTransaction\user\AuthUserLogin;
+use App\FLA\Common\BusinessObject\BusinessTransaction\user\DestroyUserLogin;
 use App\FLA\Common\CommonConstant;
 use App\FLA\Core\CoreException;
 use App\Http\Controllers\Controller;
@@ -33,7 +33,9 @@ class AuthController extends Controller
             return response()->json([
                 'status' => CommonConstant::$OK,
                 'response' => $userJson
-            ])->withCookie(Cookie::forever('token', $userJson['user_token']));;
+            ])->cookie(
+                'FLA-TOKEN', $userJson['user_token'], 120, null, null, false, false
+            );
 
         } catch (CoreException $e) {
             return response()->json([
@@ -47,7 +49,7 @@ class AuthController extends Controller
     {
         $destroyUserLogin = new DestroyUserLogin();
         $destroyUserLogin->execute([
-            'userToken' => $_COOKIE['token']
+            'userToken' => $_COOKIE['FLA-TOKEN']
         ]);
 
         if (isset($_SERVER['HTTP_COOKIE'])) {

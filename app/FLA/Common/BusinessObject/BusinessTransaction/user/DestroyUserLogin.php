@@ -1,8 +1,8 @@
 <?php
 
-namespace App\FLA\Common\BusinessObject\BusinessTransaction;
+namespace App\FLA\Common\BusinessObject\BusinessTransaction\user;
 
-use App\FLA\Common\BusinessObject\BusinessFunction\IsTokenExists;
+use App\FLA\Common\BusinessObject\BusinessFunction\user\IsTokenExists;
 use App\FLA\Common\Model\UserLoggedInfo;
 use App\FLA\Core\AbstractBusinessTransaction;
 use App\FLA\Core\Util\ValidationUtil;
@@ -42,7 +42,7 @@ class DestroyUserLogin extends AbstractBusinessTransaction
         $userLoggedInfoArr = $input['userLoggedInfoArr'];
 
         if($isFoundToken) {
-            // Update token
+            // Remove token
             $userLoggedInfo = UserLoggedInfo::find($userLoggedInfoArr['id']);
             $userLoggedInfo->delete();
         }

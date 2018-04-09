@@ -1,5 +1,5 @@
 <?php
-namespace App\FLA\BusinessObject\BusinessFunction;
+namespace App\FLA\Common\BusinessObject\BusinessFunction\user;
 
 use App\FLA\Common\CommonConstant;
 use App\FLA\Common\Model\UserAdditionalInfo;

@@ -1,5 +1,5 @@
 <?php
-namespace App\FLA\Common\BusinessObject\BusinessFunction;
+namespace App\FLA\Common\BusinessObject\BusinessFunction\user;
 
 use App\FLA\Common\Model\UserLoggedInfo;
 use App\FLA\Core\AbstractBusinessFunction;

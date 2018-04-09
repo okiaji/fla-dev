@@ -9,7 +9,10 @@
 namespace App\Http\Controllers;
 use App\FLA\BusinessObject\BusinessTransaction\AddUser;
 use App\FLA\Common\BusinessObject\BusinessFunction\FindUserByUsername;
+use App\FLA\Common\BusinessObject\BusinessFunction\user\FindUserByToken;
+use App\FLA\Common\BusinessObject\BusinessFunction\user\GetUserLoggedInfoListByUserId;
 use App\FLA\Common\BusinessObject\BusinessTransaction\AuthUserLogin;
+use App\FLA\Common\BusinessObject\BusinessTransaction\role\RemoveRole;
 use App\FLA\Common\CommonExceptionsConstant;
 use App\FLA\Core\Util\ResponseUtil;
 use App\Http\Controllers\Controller;
@@ -29,21 +32,29 @@ class TestController extends Controller
             $browser = $agent->browser()." ".$agent->version($agent->browser());
 
             $input=[
-                'userId' => $request['userId'],
+                'id' => $request['token'],
                 'username' => $request['username'],
                 'fullName' => $request['fullName'],
-                'email' => $request['email'],
-                'phoneNumber' => $request['phoneNumber']
+                'userLoginId' => $request['userLoginId'],
+                'roleLoginId' => $request['roleLoginId']
             ];
 
-            $user = new GetUserListAdvance();
+            $user = new RemoveRole();
             $userJson = $user->execute($input);
 //            $userData = $userJson->getData();
 //            $userResponse = $userData->response->user_id;
 
 //            dd($userJson);
 //            var_dump($userData);
-            return $userJson;
+            $data = "";
+//            foreach ($userJson["userList"] as $value){
+////                echo $key." = ".$value;
+//                print_r($value);
+//            }
+            return response()->json([
+                'status' => 'OK',
+                'response' => $userJson
+            ]);
 //            throw new CoreException(CommonExceptionsConstant::$DATA_IS_NOT_ACTIVE, 'Congky');
 
         } catch (CoreException $e) {

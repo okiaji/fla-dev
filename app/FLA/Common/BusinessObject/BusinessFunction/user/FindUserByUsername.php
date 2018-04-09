@@ -1,11 +1,11 @@
 <?php
-namespace App\FLA\Common\BusinessObject\BusinessFunction;
+namespace App\FLA\Common\BusinessObject\BusinessFunction\user;
 
 use App\FLA\Common\CommonExceptionsConstant;
 use App\FLA\Core\AbstractBusinessFunction;
-use App\FLA\Core\ValidationUtil;
 use App\FLA\Common\Model\User;
 use App\FLA\Core\CoreException;
+use App\FLA\Core\Util\ValidationUtil;
 
 class FindUserByUsername extends AbstractBusinessFunction
 {

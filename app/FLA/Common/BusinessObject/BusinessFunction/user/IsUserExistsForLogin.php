@@ -1,11 +1,11 @@
 <?php
-namespace App\FLA\Common\BusinessObject\BusinessFunction;
+namespace App\FLA\Common\BusinessObject\BusinessFunction\user;
 
 use App\FLA\Common\Model\User;
 use App\FLA\Core\AbstractBusinessFunction;
 use App\FLA\Core\Util\ValidationUtil;
 
-class IsUserExistsByForLogin extends AbstractBusinessFunction
+class IsUserExistsForLogin extends AbstractBusinessFunction
 {
 
     protected function process($input, $oriInput)
