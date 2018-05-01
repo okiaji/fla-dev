@@ -10,6 +10,9 @@
 @endsection
 
 @section('content')
+    @authorize('asdasd','asdasddda')
+    HILIH
+    @endauthorize
     <div class="row gap-20 masonry pos-r">
         <div class="masonry-sizer col-md-6"></div>
         <div class="masonry-item w-100">

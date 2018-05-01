@@ -2,7 +2,6 @@
 
 namespace App\FLA\Core;
 
-
 class QueryBuilder
 {
 
@@ -12,40 +11,40 @@ class QueryBuilder
         $this->query = "";
     }
 
-    public function add($query){
+    public function add(string $query){
         $this->query .= $query;
         return $this;
     }
 
-    public function addIfNotEmpty($string, $query){
+    public function addIfNotEmpty(string $string, string $query){
         if($string!=null&&$string!='') {
             $this->query .= $query;
         }
         return $this;
     }
 
-    public function addIfEmpty($string, $query){
+    public function addIfEmpty(string $string, string $query){
         if($string==null||$string=='') {
             $this->query .= $query;
         }
         return $this;
     }
 
-    public function addIfNotEquals($string, $comparison, $query){
+    public function addIfNotEquals($string, $comparison, string $query){
         if($comparison!=$string) {
             $this->query .= $query;
         }
     }
 
-    public function addIfEquals($string, $comparison, $query){
+    public function addIfEquals($string, $comparison, string $query){
         if($comparison==$string) {
             $this->query .= $query;
         }
         return $this;
     }
 
-    public function addIfTrue($booleam, $query){
-        if($booleam) {
+    public function addIfTrue(boolean $boolean, string $query){
+        if($boolean) {
             $this->query .= $query;
         }
         return $this;

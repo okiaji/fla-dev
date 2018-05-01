@@ -69,7 +69,10 @@
             }
 
             setTimeout(function(){
-                document.getElementById("loader").style.display = "none";
+                var loader = document.getElementById("loader");
+                if(loader!=null) {
+                    loader.style.display = "none";
+                }
             }, 300);
 
             $rootScope.showLoading = function () {

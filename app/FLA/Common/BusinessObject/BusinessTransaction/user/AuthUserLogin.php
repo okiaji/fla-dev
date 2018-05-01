@@ -2,6 +2,7 @@
 
 namespace App\FLA\Common\BusinessObject\BusinessTransaction\user;
 
+use App\FLA\Common\BusinessObject\BusinessFunction\role\FindDefaultUserRoleByUserId;
 use App\FLA\Common\BusinessObject\BusinessFunction\user\IsUserExistsForLogin;
 use App\FLA\Common\BusinessObject\BusinessFunction\user\IsUserLoggedInfoExistsByIndex;
 use App\FLA\Common\CommonExceptionsConstant;
@@ -64,6 +65,10 @@ class AuthUserLogin extends AbstractBusinessTransaction
             ];
 
         } else {
+            $findDefaultUserRoleByUserId = new FindDefaultUserRoleByUserId();
+            $userRole = $findDefaultUserRoleByUserId->execute([
+                'userId'=>$user->user_id
+            ]);
             $isNewClient = true;
             $userLoggedInfoArr = [
                 'userId' => $user->user_id,
@@ -71,6 +76,7 @@ class AuthUserLogin extends AbstractBusinessTransaction
                 'userDevice' => $device,
                 'userBrowser' => $browser,
                 'userToken' => $userToken,
+                'userCurrentRoleId' => $userRole->role_id,
                 'createUserId' => $userId,
                 'updateUserId' => $userId,
                 'version' => 0

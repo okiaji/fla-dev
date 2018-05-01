@@ -20,6 +20,7 @@ class CreateTableTUserLoggedInfo extends Migration
             $table->string('user_device', 300);
             $table->string('user_browser', 300);
             $table->string('user_token', 100)->unique();
+            $table->bigInteger('user_current_role_id');
             $table->string('create_datetime', 14);
             $table->string('update_datetime', 14);
             $table->bigInteger('create_user_id');

@@ -14,6 +14,7 @@ class CommonExceptionsConstant
     public static $DATA_IS_NOT_ACTIVE = "Data {0} with id {1} is not active";
     public static $DATA_NOT_FOUND = "Data {0} with id {1} is not found";
     public static $DATA_VERSION_IS_NOT_UP_TO_DATE = "Data {0} is not up to date";
+    public static $DEFAULT_USER_ROLE_IS_NOT_FOUND = "Default User Role is not found for User id {0)";
 
     //F
 
