@@ -3,16 +3,13 @@
 @section('title', 'Dashboard')
 
 @section('custom-style')
-    <link rel="stylesheet" href="{{asset('app/style/admin/css/admin.custom.css')}}" />
 @endsection
 
 @section('custom-script')
 @endsection
 
 @section('content')
-    @authorize('asdasd','asdasddda')
-    HILIH
-    @endauthorize
+    @authorize('viewDashboard')
     <div class="row gap-20 masonry pos-r">
         <div class="masonry-sizer col-md-6"></div>
         <div class="masonry-item w-100">
@@ -451,6 +448,7 @@
             </div>
         </div>
     </div>
+    @endauthorize
 @endsection
 
 @section('footer')

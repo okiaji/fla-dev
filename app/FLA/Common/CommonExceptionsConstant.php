@@ -9,6 +9,7 @@ class CommonExceptionsConstant
     //B
 
     //C
+    public static $CURRENT_USER_ROLE_IS_NOT_FOUND_BY_TOKEN = "Current user role is not found by token {0}";
 
     //D
     public static $DATA_IS_NOT_ACTIVE = "Data {0} with id {1} is not active";

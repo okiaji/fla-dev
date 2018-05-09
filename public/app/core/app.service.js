@@ -3,6 +3,24 @@
 
     var app = angular.module('flaApp');
 
+    // common service
+    app.service('CommonService', CommonService);
+    function CommonService($http, constant) {
+        return {
+            getUserLoggedInfo : function (input) {
+                var req = $http({
+                    method: "GET",
+                    url: constant.SITE_URL+"/api/get-user-logged-info",
+                    params: input
+                });
+
+                return req.then(function(response){
+                    return response.data;
+                });
+            }
+        }
+    };
+
     // login service
     app.service('AuthService', AuthService);
     function AuthService($http, constant) {

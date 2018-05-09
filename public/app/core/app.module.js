@@ -1,13 +1,12 @@
 (function(angular){
     'use strict'
-    var app = angular.module('flaApp', ['utilApp', 'angularPagination', 'ngMaterial', 'ngMessages', 'ngCookies']);
+    var app = angular.module('flaApp', ['utilApp', 'angularPagination', 'ngCookies', 'ui.select', 'ngSanitize']);
 
     app.factory("httpRequestInterceptor",["$cookies", function($cookies) {
 
         return {
             request: function (config) {
                 config.headers['FLA-TOKEN'] = $cookies.get('FLA-TOKEN');
-                config.headers['roleLogin'] = localStorage.roleLogin;
                 return config;
             }
         };
@@ -28,6 +27,6 @@
 
             $httpProvider.interceptors.push('httpRequestInterceptor');
         }
-    )
+    );
 
 })(window.angular);

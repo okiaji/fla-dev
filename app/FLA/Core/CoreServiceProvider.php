@@ -14,7 +14,6 @@ class CoreServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \Log::debug('asdasdasdas');
         Blade::directive('authorize', function ($expression) {
             return "<?php if(CoreHelpers::authTask($expression)) { ?>";
         });

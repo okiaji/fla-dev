@@ -2,8 +2,8 @@
     'use strict'
     var app = angular.module('utilApp', []);
 
-    app.run(['$rootScope', '$window', 'AuthService', 'constant',
-        function ($rootScope, $window, AuthService, constant) {
+    app.run(['$rootScope', '$window', 'AuthService', 'CommonService', 'constant',
+        function ($rootScope, $window, AuthService, CommonService, constant) {
             /**
              * Daftarkan global variable/function kedalam rootscope di bawah ini
              */
@@ -11,6 +11,37 @@
             $rootScope.isTouchDevice = function() {
                 return 'ontouchstart' in document.documentElement;
             };
+
+            /**
+             * Mendapatkan current user role
+             */
+            var getUserLoggedInfo = function() {
+                var input = {
+                }
+                CommonService.getUserLoggedInfo(input)
+                .then(function (result) {
+                        if(result.status == constant.OK) {
+                            $rootScope.currentRole = {};
+
+                            var userInfo = result.response.userInfo;
+                            $rootScope.full_name = userInfo.full_name;
+                            $rootScope.currentRole.selected = result.response.currentRole;
+                            $rootScope.userRoleList = result.response.userRoleList;
+                            // localStorage.setItem('currentRole', result.response.role_code);
+                        }
+
+                    }
+                )
+                .catch(function (result) {
+                        console.log(result);
+                    }
+                )
+            }
+            getUserLoggedInfo();
+
+            $rootScope.changeRole = function(){
+                console.log("current role : ", $rootScope.currentRole.selected);
+            }
 
             $rootScope.doLogout = function () {
                 var input = {
@@ -113,6 +144,57 @@
     app.directive('pagging', function () {
         return {
             templateUrl : 'app/view/common/pagging.html'
+        };
+    })
+
+    app.directive('commonModal', function () {
+        return {
+            templateUrl : 'app/view/common/common-modal.html'
+        };
+    })
+
+    app.directive('selectWithSearch', function () {
+        return {
+            template : function (elem, attr) {
+
+                var model = '',
+                    theme = '',
+                    title = '',
+                    change = '',
+                    placeholder = '',
+                    label = '',
+                    style = '';
+
+                if(attr.model!=null) {
+                    model = ' ng-model="'+attr.model+'.selected"';
+                }
+                if(attr.theme!=null) {
+                    theme = ' theme="'+attr.theme+'"';
+                }
+                if(attr.title!=null) {
+                    title = ' title="'+attr.title+'"';
+                }
+                if(attr.change!=null) {
+                    change = ' ng-change="'+attr.change+'"';
+                }
+                if(attr.placeholder!=null) {
+                    placeholder = ' placeholder="'+attr.placeholder+'"';
+                }
+                if(attr.label!=null) {
+                    label = attr.label;
+                }
+                if(attr.style!=null) {
+                    style = ' style="'+attr.style+'"';
+                }
+
+                return  '<ui-select'+model+theme+title+change+style+'>' +
+                            '<ui-select-match'+placeholder+'><{$select.selected.'+label+'}></ui-select-match>' +
+                            '<ui-select-choices repeat="'+attr.model+' in '+attr.list+' | filter: $select.search">' +
+                                '<span ng-bind-html="'+attr.model+'.'+label+' | highlight: $select.search"></span>' +
+                            '</ui-select-choices>' +
+                            '<ui-select-no-choice><span>No result found</span></ui-select-no-choice>' +
+                        '</ui-select>';
+            }
         };
     })
 })(window.angular);

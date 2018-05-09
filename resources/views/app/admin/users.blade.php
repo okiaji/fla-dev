@@ -11,7 +11,7 @@
 
 @section('content')
     <div class="container-fluid" ng-controller="UsersCtrl">
-        <h4 class="c-grey-900 mT-10 mB-30">Users <button type="button" class="btn cur-p btn-primary">+ Add New</button></h4>
+        <h4 class="c-grey-900 mT-10 mB-30">Users <button type="button" class="btn cur-p btn-primary" ng-click="openDlg('lg')">+ Add New</button></h4>
         <div class="row">
             <div class="col-md-12">
                 <div class="bgc-white bd bdrs-3 p-20 mB-20 dataTables_wrapper">
@@ -57,7 +57,7 @@
                                     class="bg_none"
                                     ng-model="showData"
                                     ng-change="changeShowData()"
-                                    ng-options='option.value as option.name for option in showDataList'><!--http://jsfiddle.net/MTfRD/3/-->
+                                    ng-options='option.value as option.name for option in showDataList'>
                             </select> entries</label>
                     </div>
                     <div id="" class="dataTables_filter">

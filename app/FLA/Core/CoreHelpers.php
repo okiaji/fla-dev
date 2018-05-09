@@ -2,6 +2,8 @@
 
 namespace App\FLA\Core;
 
+use App\FLA\Common\BusinessObject\BusinessFunction\task\IsTaskValidForCurrentRole;
+
 class CoreHelpers
 {
     /**
@@ -13,7 +15,13 @@ class CoreHelpers
      */
     public static function authTask(...$task) {
 
-        return false;
+        $token = isset($_COOKIE['FLA-TOKEN'])?$_COOKIE['FLA-TOKEN']:'';
+        $isTaskValidForCurrentRole = new IsTaskValidForCurrentRole();
+        $task = $isTaskValidForCurrentRole->execute([
+            'token' => $token,
+            'taskList' => $task,
+        ]);
+        return $task;
     }
 
 }

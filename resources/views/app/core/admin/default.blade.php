@@ -5,80 +5,26 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
     @yield('custom-meta')
     <title>FLA - @yield('title')</title>
-    <style>
-        #loader {
-            transition: all .3s ease-in-out;
-            opacity: 1;
-            visibility: visible;
-            position: fixed;
-            height: 100vh;
-            width: 100%;
-            background: #fff;
-            z-index: 90000
-        }
+    <link href="{{asset('css/select.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/select2.min.css')}}" rel="stylesheet">
 
-        #loader.fadeOut {
-            opacity: 0;
-            visibility: hidden
-        }
-
-        .spinner {
-            width: 40px;
-            height: 40px;
-            position: absolute;
-            top: calc(50% - 20px);
-            left: calc(50% - 20px);
-            background-color: #333;
-            border-radius: 100%;
-            -webkit-animation: sk-scaleout 1s infinite ease-in-out;
-            animation: sk-scaleout 1s infinite ease-in-out
-        }
-
-        @-webkit-keyframes sk-scaleout {
-            0% {
-                -webkit-transform: scale(0)
-            }
-            100% {
-                -webkit-transform: scale(1);
-                opacity: 0
-            }
-        }
-
-        @keyframes sk-scaleout {
-            0% {
-                -webkit-transform: scale(0);
-                transform: scale(0)
-            }
-            100% {
-                -webkit-transform: scale(1);
-                transform: scale(1);
-                opacity: 0
-            }
-        }
-    </style>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.6/angular-material.min.css">
     <link href="{{asset('app/style/admin/css/admin.main.min.css')}}" rel="stylesheet">
     <link href="{{asset('app/style/admin/css/admin.custom.css')}}" rel="stylesheet">
     @yield('custom-style')
 
-    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
     <script src="{{asset('js/angular.min.js')}}"></script>
-    <script src="{{asset('js/angular-route.min.js')}}"></script>
     <script src="{{asset('js/angular-pagination.min.js')}}"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-animate.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-aria.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-messages.min.js"></script>
-    <!-- Angular Material Javascript now available via Google CDN; version 1.1.6 used here -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.6/angular-material.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-cookies.js"></script>
+    <script src="{{asset('js/angular-cookies.min.js')}}"></script>
+    <script src="{{asset('js/angular-sanitize.min.js')}}"></script>
+    <script src="{{asset('js/select.min.js')}}"></script>
 
     <script src="{{asset('app/core/app.route.js')}}"></script>
     <script src="{{asset('app/core/app.util.js')}}"></script>
     <script src="{{asset('app/core/app.module.js')}}"></script>
     <script src="{{asset('app/core/app.service.js')}}"></script>
     @yield('custom-script')
+
 @endsection
 
 @section('abs-content')
@@ -226,12 +172,13 @@
                         <li class="dropdown">
                             <a href="" class="dropdown-toggle no-after peers fxw-nw ai-c lh-1" data-toggle="dropdown">
                                 <div class="peer mR-10"><img class="w-2r bdrs-50p" src="https://randomuser.me/api/portraits/men/10.jpg" alt=""></div>
-                                <div class="peer"><span class="fsz-sm c-grey-900">John Doe</span></div>
+                                <div class="peer"><span class="fsz-sm c-grey-900"><{full_name}></span></div>
                             </a>
                             <ul class="dropdown-menu fsz-sm">
                                 <li><a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700"><i class="ti-settings mR-10"></i> <span>Setting</span></a></li>
                                 <li><a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700"><i class="ti-user mR-10"></i> <span>Profile</span></a></li>
                                 <li><a href="email.html" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700"><i class="ti-email mR-10"></i> <span>Messages</span></a></li>
+                                <li><a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700" data-toggle="modal" data-target="#roleDlg" data-ng-click="moreinfo('customer')"><i class="ti-id-badge mR-10"></i> <span>Role</span></a></li>
                                 <li role="separator" class="divider"></li>
                                 <li>
                                     <a href="#" ng-click="doLogout()" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
@@ -247,6 +194,9 @@
                 <div id="mainContent">
                     @yield('content')
                 </div>
+                <!-- Common Modal start -->
+                <div common-modal></div>
+                <!-- Common Modal end -->
             </main>
             <footer class="bdT ta-c p-30 lh-0 fsz-sm c-grey-600">
                 <span>Copyright © 2017 Designed by <a href="https://colorlib.com" target="_blank" title="Colorlib">Colorlib</a>. All rights reserved.</span>

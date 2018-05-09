@@ -4,9 +4,9 @@
     var app = angular.module('flaApp');
     app.controller('UsersCtrl', UsersCtrl);
 
-    UsersCtrl.$inject = ['$scope', 'PersonService', 'constant', 'Pagination', '$mdDialog'];
+    UsersCtrl.$inject = ['$scope', 'PersonService', 'constant', 'Pagination'];
 
-    function UsersCtrl($scope, PersonService, constant, Pagination, $mdDialog) {
+    function UsersCtrl($scope, PersonService, constant, Pagination) {
 
         var ui = $scope;
 
@@ -66,33 +66,6 @@
                 )
         }
 
-        $scope.showAdvanced = function(ev) {
-            $mdDialog.show({
-                controller: DialogController,
-                templateUrl: 'app/view/admin/users/edit-users.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: true,
-                fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-            })
-        }
-
-        $scope.showConfirm = function(ev) {
-            // Appending dialog to document.body to cover sidenav in docs app
-            var confirm = $mdDialog.confirm()
-                .title('Are you sure?')
-                .textContent('Do you want to delete selected item')
-                .targetEvent(ev)
-                .ok('Yes')
-                .cancel('No');
-
-            $mdDialog.show(confirm).then(function() {
-                console.log("do delete");
-            }, function() {
-                console.log("cancel delete");
-            });
-        };
-
         ui.changeShowData = function () {
             ui.generatePagination(ui, Pagination, ui.showData, ui.count, 5, ui.currentPage);
             ui.setURLParameter('d',ui.showData);
@@ -109,19 +82,14 @@
 
         ui.doSearch();
 
-        function DialogController($scope, $mdDialog) {
-            $scope.hide = function() {
-                $mdDialog.hide();
-            };
+        $scope.customerinfo='sadsada';
+        $scope.moreinfo= function(customer){
+            console.log("test", customer);
+            $scope.customerinfo= customer;
 
-            $scope.cancel = function() {
-                $mdDialog.cancel();
-            };
+            console.log("customerinfo : ",$scope.customerinfo);
+        };
 
-            $scope.answer = function(answer) {
-                $mdDialog.hide(answer);
-            };
-        }
 
     };
 

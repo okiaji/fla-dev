@@ -1,13 +1,13 @@
 <?php
 namespace App\Http\Controllers\App\Common;
 
+use App\FLA\Common\BusinessObject\BusinessFunction\user\GetUserInfoByToken;
 use App\FLA\Common\BusinessObject\BusinessTransaction\user\AuthUserLogin;
 use App\FLA\Common\BusinessObject\BusinessTransaction\user\DestroyUserLogin;
 use App\FLA\Common\CommonConstant;
 use App\FLA\Core\CoreException;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
 use Jenssegers\Agent\Agent;
 
 class AuthController extends Controller
@@ -28,14 +28,20 @@ class AuthController extends Controller
                 'browser' => $browser
             ];
 
-            $user = new AuthUserLogin();
-            $userJson = $user->execute($input);
+            // Auth login
+            $authUser = new AuthUserLogin();
+            $userLoggedInfo = $authUser->execute($input);
+
+            // Get user info
+            $getUserInfo = new GetUserInfoByToken();
+            $userInfo = $getUserInfo->execute([
+                'token' => $userLoggedInfo['user_token']
+            ]);
+
             return response()->json([
                 'status' => CommonConstant::$OK,
-                'response' => $userJson
-            ])->cookie(
-                'FLA-TOKEN', $userJson['user_token'], 120, null, null, false, false
-            );
+                'response' => $userInfo
+            ])->withCookie(Cookie()->forever('FLA-TOKEN', $userLoggedInfo['user_token'], null, null, false, false));
 
         } catch (CoreException $e) {
             return response()->json([

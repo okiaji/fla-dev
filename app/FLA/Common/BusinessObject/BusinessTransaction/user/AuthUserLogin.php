@@ -48,12 +48,9 @@ class AuthUserLogin extends AbstractBusinessTransaction
         $userToken = GeneralUtil::generateToken($user->username, $datetimeNow);
         $userId = $user->user_id;
 
-        $checkUserLoggedInfo = new IsUserLoggedInfoExistsByIndex();
-        $resultCheckUserLoggedInfo = $checkUserLoggedInfo->execute([
-            'userId'=>$user->user_id,
-            'userIp'=>$ip,
-            'userDevice'=>$device,
-            'userBrowser'=>$browser
+        $isTokenExists = new IsTokenExists();
+        $resultCheckUserLoggedInfo = $isTokenExists->execute([
+            'token'=>$userToken
         ]);
 
         if($resultCheckUserLoggedInfo['exists']) {
@@ -61,7 +58,8 @@ class AuthUserLogin extends AbstractBusinessTransaction
             $userLoggedInfo = $resultCheckUserLoggedInfo['userLoggedInfo'];
 
             $userLoggedInfoArr = [
-                'id' => $userLoggedInfo->user_logged_info_id
+                'id' => $userLoggedInfo->user_logged_info_id,
+                'updateUserId' => $userId
             ];
 
         } else {
@@ -96,12 +94,19 @@ class AuthUserLogin extends AbstractBusinessTransaction
         $userLoggedInfoArr = $input['userLoggedInfoArr'];
 
         if($isNewClient) {
+
             // Insert data user logged info
             $userLoggedInfo = new UserLoggedInfo();
             $userLoggedInfo = ModelUtil::convertArrayToModel($userLoggedInfoArr, $userLoggedInfo);
             $result = $userLoggedInfo->add();
+
         } else {
-            $result = UserLoggedInfo::find($userLoggedInfoArr['id']);
+
+            // Update data user logged info
+            $userLoggedInfo = UserLoggedInfo::find($userLoggedInfoArr['id']);
+            $userLoggedInfo = ModelUtil::convertArrayToModel($userLoggedInfoArr, $userLoggedInfo);
+            $result = $userLoggedInfo->edit();
+
         }
 
         $data = array('name'=>"Congky", 'text'=>'Anda baru saja login');

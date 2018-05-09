@@ -35,10 +35,11 @@ Route::group(['middleware' => ['verifyReq']], function () {
     Route::get('count-role-task-list-advance', 'App\Admin\RoleTaskController@countRoleTaskListAdvance');
 
     // USER
-    Route::post('add-user', 'App\Admin\PersonController@addUser');
-    Route::post('edit-user', 'App\Admin\PersonController@editUser');
-    Route::post('remove-user', 'App\Admin\PersonController@removeUser');
-    Route::get('get-user-list-advance', 'App\Admin\PersonController@getUserListAdvance');
-    Route::get('count-user-list-advance', 'App\Admin\PersonController@countUserListAdvance');
+    Route::post('add-user', 'App\Admin\UserController@addUser');
+    Route::post('edit-user', 'App\Admin\UserController@editUser');
+    Route::post('remove-user', 'App\Admin\UserController@removeUser');
+    Route::get('get-user-list-advance', 'App\Admin\UserController@getUserListAdvance');
+    Route::get('count-user-list-advance', 'App\Admin\UserController@countUserListAdvance');
+    Route::get('get-user-logged-info', 'App\Admin\UserController@getUserLoggedInfo');
 
 });
